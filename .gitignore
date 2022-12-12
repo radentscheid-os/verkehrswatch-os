@@ -1,0 +1,6 @@
+config.py
+.vscode
+__pycache__/
+*.egg-info
+
+

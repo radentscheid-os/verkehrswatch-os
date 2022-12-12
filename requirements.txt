@@ -1,0 +1,5 @@
+requests
+twitter
+mysql-connector-python
+matplotlib
+numpy

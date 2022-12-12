@@ -1,0 +1,25 @@
+# Twitter credentials
+ckey = ''
+csecret = ''
+atoken = ''
+atsecret = ''
+
+# Database
+DB_FILE = ""
+
+# Parkuhaus-URLS
+BASE_URL = "https://www.parken-osnabrueck.de/"
+UTILIZATION_URL = "/index.php?id=1&type=427590&tx_tiopgparkhaeuserosnabrueck_parkingosnabruek[controller]=Parking&tx_tiopgparkhaeuserosnabrueck_parkingosnabruek[action]=ajaxCallGetUtilizationData&_=1630313545099"
+
+# SMTP Settings
+SMTP_SERVER = ""
+SMTP_PORT = ""
+SENDER_EMAIL = ""
+DEFAULT_RECEIVER_EMAIL = ""
+EMAIL_PASSWORD = ""
+EMAIL_ERROR_MESSAGE = """Subject: Twitter-Bot Error
+
+Script: {script}
+Error: {error}
+Traceback: {traceback}
+"""

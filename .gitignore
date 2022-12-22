@@ -2,5 +2,5 @@ config.py
 .vscode
 __pycache__/
 *.egg-info
-
+verkehrswatch_os/img/*
 

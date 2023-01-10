@@ -97,12 +97,12 @@ def monthly_stats():
     katha_count_last_year = get_count(KATHA["ids"], KATHA["token"], begin_last_year, end_last_year, STEP)
     katha_count_two_years_ago = get_count(KATHA["ids"], KATHA["token"], begin_two_years_ago, end_two_years_ago, STEP)
     
-    current_year = first.strftime("%Y")
-    last_year = (first - relativedelta(years=1)).strftime("%Y")
-    two_years_ago = (first - relativedelta(years=2)).strftime("%Y")
+    year = last_month.strftime("%Y")
+    last_year = (last_month - relativedelta(years=1)).strftime("%Y")
+    two_years_ago = (last_month - relativedelta(years=2)).strftime("%Y")
     belm_path = Path(__file__).parent.resolve() / Path("img/belm.png")
     generate_diagram(
-        [two_years_ago, last_year, current_year],
+        [two_years_ago, last_year, year],
         [belm_os_count_two_years_ago or 0, belm_os_count_last_year or 0, belm_os_count or 0],
         f"Radschnellweg Belm \n\n Radfahrende im {last_month_string}",
         "royalblue",
@@ -110,18 +110,19 @@ def monthly_stats():
 
     kata_path = Path(__file__).parent.resolve() / Path("img/katharinenstr.png")
     generate_diagram(
-        [two_years_ago, last_year, current_year],
+        [two_years_ago, last_year, year],
         [katha_count_two_years_ago or 0, katha_count_last_year or 0, katha_count or 0],
         f"Katharinenstraße \n\n Radfahrende im {last_month_string}",
         "forestgreen",
         kata_path)
-    message = "Im {last_month_string} zählten die #Osnabrück|er Fahrradzählstellen folgende Anzahl an Fahrradfahrenden. Vorjahreszahlen in Klammern\
+    message = "Im {last_month_string} {year} zählten die #Osnabrück|er Fahrradzählstellen folgende Anzahl an Fahrradfahrenden. Vorjahreszahlen in Klammern\
     \n\nRadschnellweg Belm-OS: {belm_os_count} ({last_year}: {belm_os_count_last_year}, {two_years_ago}: {belm_os_count_two_years_ago})\
     \nKatharinenstraße: {katha_count} ({last_year}: {katha_count_last_year}, {two_years_ago}: {katha_count_two_years_ago})"
     
     message = message.format(
         last_month_string=last_month_string,
         last_year=last_year,
+        year=year,
         two_years_ago=two_years_ago,
         belm_os_count=belm_os_count or "-", 
         belm_os_count_last_year=belm_os_count_last_year or "-",

@@ -28,6 +28,7 @@ Quelle:
 ## Parkhaus-Daten
 
 Ab März 2021 wird stündlich die Belegung der Osnabrücker Parkhäuser abgefragt und werden nun hier für weitere Auswertungen zur Verfügung gestellt. Es gibt die Daten in 2 Formaten, einmal csv-Datei für die Weiterarbeitung in Excel oder als sqlite-Datenbank. Im Datensatz befinden sich 2 Tabellen.
+Die Daten werden wöchentlich automatisch aktualisiert.
 
 ### Tabelle 1: Parkhaus-Infos`ramps_details`
 
@@ -118,7 +119,6 @@ optional arguments:
 ```
 
 ## TODO:
-- Parkhaus Daten regelmäßig veröffentlichen
 - Parkhausbelegung in Diagramm darstellen und wöchentlich twittern
 - Anzahl der Radfahrenden im aktuellen Jahr (2 wöchentlich)
 - auf Mastadon tröten

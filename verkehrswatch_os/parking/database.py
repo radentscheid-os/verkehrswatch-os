@@ -30,6 +30,16 @@ def connect():
 
     return conn
 
+
+def query(statement, data=()):
+    with sqlite3.connect(config.DB_FILE) as connection:
+        connection.row_factory = sqlite3.Row
+        cursor = connection.cursor()
+        cursor.execute(statement, data)
+        result = cursor.fetchall()
+        return result
+
+
 def execute(statement, data):
 
     with sqlite3.connect(config.DB_FILE) as connection:

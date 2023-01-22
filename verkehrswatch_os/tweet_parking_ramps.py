@@ -4,11 +4,11 @@ import random
 from urllib.parse import urljoin
 from datetime import datetime
 from twitter import *
-
+import pytz
 from verkehrswatch_os.base import config
 from verkehrswatch_os.base import mail
 
-from verkehrswatch_os.parking.parking_ramps import get_ramps_utilization
+from verkehrswatch_os.parking.parking_ramps import get_ramps_utilization_from_db
 
 
 def sendTweet(msg):
@@ -53,31 +53,24 @@ def getComparisson(freeSpots):
     return [round(totalArea), factor, text]
 
 
-def getFreeAndTotalNumber():
-
-    ramp_utilization = get_ramps_utilization(urljoin(config.BASE_URL, config.UTILIZATION_URL))
-    
-    total = 0
-    free = 0
-
-    for key in ramp_utilization.keys():
-        parkhaus = ramp_utilization[key]
-        total += parkhaus["capacity"]
-        free += parkhaus["available"]
-
-    return [free, total]
-
 
 def main():
     try:
-        numbers = getFreeAndTotalNumber()
-        comp = getComparisson(numbers[0])
+        numbers = get_ramps_utilization_from_db(True)
+        comp = getComparisson(numbers["available"])
 
-        message = f"In #Osnabrück werden aktuell {numbers[0]} von {numbers[1]} Autoparkplätzen " \
+        message = f"In #Osnabrück werden aktuell {numbers['available']} von {numbers['total']} Autoparkplätzen " \
                   f"in der Innenstadt nicht genutzt. Das ist eine Flächenverschwendung von " \
                   f"{comp[0]} m² (ca. {comp[1]} {comp[2]})."
            
         time = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+        # check if data is current
+        time_now = datetime.now(pytz.UTC)
+        time_data = datetime.strptime(numbers["created_at_utc"],"%Y-%m-%d %H:%M:%S").replace(tzinfo=pytz.UTC)
+        delta = time_now - time_data
+        if delta.seconds > 10 * 60: # data shouldn't be older than 10 minutes
+            raise Exception("Data outdated. Skip tweet.")
+
         print(f"{time}: {message}")
         sendTweet(message)
     except Exception as e:

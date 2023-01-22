@@ -11,7 +11,33 @@ Folgende Quellen werden angezapft:
 
 Parken im öffentlich Raum verbraucht viel Platz, der gerade in der Innenstadt auch anderen Verkehrsarten, wie dem Fuß- oder Radverkehr, zugesprochen werden könnte. Daher möchten wir aufzeigen, dass es in Osnabrück bereits viele Parkmöglichkeiten in Parkhäusern gibt und diese auch sehr oft nicht ausgelastet sind. Innerstädtische Parkplätze könnten somit ersatzlos gestrichen und der Raum anderen Verkehrsarten zur Verfügung gestellt werden.
 
-2 mal täglich werden die aktuell frei verfügbaren Parkplätze getwittert.
+2 mal täglich werden die aktuell frei verfügbaren Parkplätze getwittert. Ab 23.01.2023 werden nur noch Parkhäuser im bzw. am Rand des Wallrings ausgewertet. Dadurch sollte sich die Anzahl der verfügbaren Parkplätze verringern. Folgende Parkhäuser werden für Twitter ausgewertet:
+
+![Karte der Parkhäuser in der Innenstadt](ramps_map.png "Parkhäuser Innenstadt")
+
+|name|address|longitude|latitude|
+|----|-------|---------|--------|
+|Parkhaus Bahnhofsgarage|Bahnhofs-Garage, Theodor-Heuss-Platz, 49074 Osnabrück|8.059507|52.2714829|
+|Parkplatz Berliner Platz|Parkplatz Berliner Platz, Kleiststraße, 49074 Osnabrück|8.053614|52.276016|
+|Parkplatz Kunsthalle Dominikanerkirche|Parkplatz, Hasemauer 3, 49074 Osnabrück|8.040564|52.279661|
+|Parkhaus Altstadtgarage|Lohstraße 11, 49074 Osnabrück|8.041294|52.278756|
+|Parkplatz Haarmannsbrunnen|Haarmannsbrunnen, Herrenteichswall 2, 49074 Osnabrück|8.048747|52.276018|
+|Parkhaus Neustadt-Carré|Neustadt Carré, Kommenderiestraße, 49074 Osnabrück|8.050286|52.268042|
+|Parkhaus Kollegienwall-Garage|Am Landgericht 2, 49074 Osnabrück|8.051323|52.271952|
+|Parkhaus Ledenhof-Garage|Ledenhof-Garage, Alte Münze 18, 49074 Osnabrück|8.04474|52.272644|
+|Parkplatz Schlosswallhalle|Stellplatz Osnabrück City, Schnatgang 6, 49080 Osnabrück|8.040123|52.270871|
+|Parkhaus Salzmarkt-Garage|Salzmarkt-Garage, Holtstraße 37, 49074 Osnabrück|8.055086|52.268722|
+|Parkhaus Stadthaus-Garage|Stadthaus-Garage, Natruper-Tor-Wall 2, 49076 Osnabrück|8.037697|52.278044|
+|Parkplatz Stadthaus|Stadthaus-Garage, Natruper-Tor-Wall 2, 49076 Osnabrück|8.037495|52.278156|
+|Parkhaus Vitihof-Garage|Vitihof-Garage, Gerberhof 10, 49074 Osnabrück|8.042148|52.280237|
+|Parkhaus Sparkasse|Schillerstraße 21, 49074 Osnabrück|8.05045|52.275491|
+|Parkplatz Heinrich-Heine-Straße|Heinrich-Heine-Straße, 49074 Osnabrück|8.056268|52.272313|
+|Parkhaus Cinema Arthouse|Karlstraße 8, 49074 Osnabrück|8.050225|52.277859|
+|Parkhaus L&T|Herrenteich Straße, 49074 Osnabrück|8.046636317986193|52.27605989377632|
+|Tiefgarage L&T|Herrenteich Straße, 49074 Osnabrück|8.046642574460018|52.27605223763358|
+|Parkplatz Stresemannplatz|Schlagvorder Straße, 49074 Osnabrück|8.0543955|52.2737128|
+
+
 
 Zusätzlich wird die Verfügbarkeit stündlich abgefragt und für weitere Auswertungen gespeichert. Die Daten ab März 2021 sind hier unter [Parkhaus-Daten](./Parkhaus-Daten/) hinterlegt.
 
@@ -42,6 +68,7 @@ Die Daten werden wöchentlich automatisch aktualisiert.
 | latitude | geografische Breite |
 | longitude | geografische Länge |
 | address | komplette Adresse |
+| city_center | Parkhaus befindet sich im Zentrum (innerhalb oder Nähe Wallring | 
 
 ### Tabelle 2: Auslastung `ramp_utilization`
 

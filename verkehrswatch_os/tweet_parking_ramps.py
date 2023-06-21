@@ -1,8 +1,9 @@
 import os
 import traceback
 import random
+import argparse
 from urllib.parse import urljoin
-from datetime import datetime
+from datetime import datetime, timedelta
 from twitter import *
 import pytz
 from verkehrswatch_os.base import config
@@ -52,27 +53,44 @@ def getComparisson(freeSpots):
     text = singleComp[1]
     return [round(totalArea), factor, text]
 
+def weekly_overview():
+    today = datetime.today()
+    time_to = (today - timedelta(days=today.weekday())).replace(hour=0,minute=0,second=0,microsecond=0) # Monday 0:00
+    time_from = time_to - timedelta(days=7)
+    data = get_ramps_utilization_from_db(city_center=True, latest=False, time_from=time_from, time_to=time_to)
+    # TODO: plot data
+    # TODO: tweet image
+    # TODO: save image in git
+    # TODO: may create website with parking space diagrams
 
 
 def main():
     try:
-        numbers = get_ramps_utilization_from_db(True)
-        comp = getComparisson(numbers["available"])
+        parser = argparse.ArgumentParser(description='Twitter-Bot für Parkhausverfügbarkeit in Osnabrück')
+        parser.add_argument('-o','--overview', help='Tweet weekly overview of ramp availability ', action='store_true')
+        
+        args = parser.parse_args()
+        if args.overview:
+            weekly_overview()
 
-        message = f"In #Osnabrück werden aktuell {numbers['available']} von {numbers['total']} Autoparkplätzen " \
-                  f"in der Innenstadt nicht genutzt. Das ist eine Flächenverschwendung von " \
-                  f"{comp[0]} m² (ca. {comp[1]} {comp[2]})."
-           
-        time = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
-        # check if data is current
-        time_now = datetime.now(pytz.UTC)
-        time_data = datetime.strptime(numbers["created_at_utc"],"%Y-%m-%d %H:%M:%S").replace(tzinfo=pytz.UTC)
-        delta = time_now - time_data
-        if delta.seconds > 10 * 60: # data shouldn't be older than 10 minutes
-            raise Exception("Data outdated. Skip tweet.")
+        else:
+            numbers = get_ramps_utilization_from_db(True)
+            comp = getComparisson(numbers["available"])
 
-        print(f"{time}: {message}")
-        sendTweet(message)
+            message = f"In #Osnabrück werden aktuell {numbers['available']} von {numbers['total']} Autoparkplätzen " \
+                    f"in der Innenstadt nicht genutzt. Das ist eine Flächenverschwendung von " \
+                    f"{comp[0]} m² (ca. {comp[1]} {comp[2]})."
+            
+            time = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+            # check if data is current
+            time_now = datetime.now(pytz.UTC)
+            time_data = datetime.strptime(numbers["created_at_utc"],"%Y-%m-%d %H:%M:%S").replace(tzinfo=pytz.UTC)
+            delta = time_now - time_data
+            if delta.seconds > 10 * 60: # data shouldn't be older than 10 minutes
+                raise Exception("Data outdated. Skip tweet.")
+
+            print(f"{time}: {message}")
+            sendTweet(message)
     except Exception as e:
         mail.send_email(config.EMAIL_ERROR_MESSAGE.format(
             script=os.path.basename(__file__),
